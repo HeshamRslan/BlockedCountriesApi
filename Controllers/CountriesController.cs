@@ -18,7 +18,7 @@ namespace BlockedCountriesApi.Controllers
             _temporalBlockStore = temporalBlockStore;
         }
 
-        // ✅ 1️⃣ Add Blocked Country (Permanent)
+        //  1️ Add Blocked Country (Permanent)
         [HttpPost("block")]
         public IActionResult AddBlockedCountry([FromBody] BlockedCountryRequest request)
         {
@@ -36,8 +36,7 @@ namespace BlockedCountriesApi.Controllers
             var added = _blockedCountryStore.Add(new BlockedCountry
             {
                 CountryCode = code,
-                CountryName = request.CountryName,
-                AddedAt = DateTime.UtcNow
+                CountryName = request.CountryName
             });
 
             if (!added)
@@ -46,7 +45,7 @@ namespace BlockedCountriesApi.Controllers
             return Ok(new { success = true, message = $"Country '{code}' has been permanently blocked." });
         }
 
-        // ✅ 2️⃣ Remove Blocked Country (Permanent)
+        //  2️ Remove Blocked Country (Permanent)
         [HttpDelete("block/{countryCode}")]
         public IActionResult RemoveBlockedCountry(string countryCode)
         {
@@ -66,7 +65,7 @@ namespace BlockedCountriesApi.Controllers
             return Ok(new { success = true, message = $"Country '{code}' has been unblocked successfully." });
         }
 
-        // ✅ 3️⃣ Get All Blocked Countries (Permanent)
+        // 3️ Get All Blocked Countries (Permanent)
         [HttpGet("blocked")]
         public IActionResult GetBlockedCountries(
             [FromQuery] string? search,
@@ -95,7 +94,7 @@ namespace BlockedCountriesApi.Controllers
             });
         }
 
-        // ✅ 4️⃣ Temporarily Block a Country
+        //  4️ Temporarily Block a Country
         [HttpPost("temporal-block")]
         public IActionResult AddTemporalBlock([FromBody] TemporalBlockRequest request)
         {
